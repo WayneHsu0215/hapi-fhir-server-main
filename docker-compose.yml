@@ -6,6 +6,7 @@ services:
     image: "hapiproject/hapi:latest"
     environment:
       TOKEN: "some_token"
+      HAPI_IMPLEMENTATION_GUIDE_PATH: /ig/package.tgz
     ports:
       - "8080:8080"
     configs:
@@ -13,6 +14,9 @@ services:
         target: /app/config/application.yaml
       - source: hapi-extra-classes
         target: /app/extra-classes
+    volumes:
+      - ./hapi.postgress.data:/var/lib/postgresql/data
+      - ./ig/package.tgz:/ig/package.tgz  # 將本地 IG package 複製到容器中
     depends_on:
       - db
 
@@ -25,10 +29,10 @@ services:
       POSTGRES_DB: hapi
     volumes:
       - ./hapi.postgress.data:/var/lib/postgresql/data
-
 configs:
   hapi:
     file: ./hapi.application.yaml
   hapi-extra-classes:
     # Compile the interceptor project first
     file: ./interceptor/target/classes
+

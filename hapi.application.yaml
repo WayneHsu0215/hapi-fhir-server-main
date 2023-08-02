@@ -13,6 +13,7 @@ hapi:
     openapi_enabled: true
     implementationguides:
       twcore:
-        path: ${HAPI_IMPLEMENTATION_GUIDE_PATH}
+        name: tw.gov.mohw.twcore
+        version: 0.1.0
     custom-bean-packages: org.example
     custom-interceptor-classes: org.example.BearerAuthInterceptor
